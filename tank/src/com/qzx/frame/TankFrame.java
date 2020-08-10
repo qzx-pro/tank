@@ -14,6 +14,9 @@ import java.awt.Graphics;
  */
 public class TankFrame extends Frame{
     int x=200,y=200;//初始位置
+    Dir dir = Dir.STOP;//坦克的初始方向
+    private static final int SPEED = 10;//坦克移动的速度
+
     public TankFrame() {
         this.setSize(800, 600);//初始大小
         this.setResizable(false);//设置大小不可变
@@ -32,6 +35,21 @@ public class TankFrame extends Frame{
     @Override
     public void paint(Graphics g) {
         g.fillRect(x, y, 50, 50);
+        //根据坦克的方向进行移动
+        switch (dir){
+            case LEFT:
+                x -= SPEED;
+                break;
+            case RIGHT:
+                x += SPEED;
+                break;
+            case UP:
+                y -= SPEED;
+                break;
+            case DOWN:
+                y += SPEED;
+                break;
+        }
     }
     class MyKey extends KeyAdapter {
         boolean bL = false;//向左,按下为true,释放为false
@@ -58,6 +76,8 @@ public class TankFrame extends Frame{
                 default:
                     break;
             }
+            //根据标记改变坦克的方向
+            setTankDir();
         }
 
         @Override
@@ -79,7 +99,22 @@ public class TankFrame extends Frame{
                 default:
                     break;
             }
+            //根据标记改变坦克的方向
+            setTankDir();
         }
-
+        //设置坦克的方向
+        private void setTankDir() {
+            if (bL) {
+                dir = Dir.LEFT;
+            }else if (bR) {
+                dir = Dir.RIGHT;
+            }else if (bU) {
+                dir = Dir.UP;
+            }else if (bD) {
+                dir = Dir.DOWN;
+            }else {
+                dir = Dir.STOP;
+            }
+        }
     }
 }
