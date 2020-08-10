@@ -34,22 +34,26 @@ public class TankFrame extends Frame{
         g.fillRect(x, y, 50, 50);
     }
     class MyKey extends KeyAdapter {
+        boolean bL = false;//向左,按下为true,释放为false
+        boolean bR = false;//向右,按下为true,释放为false
+        boolean bU = false;//向上,按下为true,释放为false
+        boolean bD = false;//向下,按下为true,释放为false
 
         @Override
         public void keyPressed(KeyEvent e) {
             int key = e.getKeyCode();
             switch (key) {
                 case KeyEvent.VK_LEFT:
-                    x -= 10;
+                    bL = true;
                     break;
                 case KeyEvent.VK_RIGHT:
-                    x += 10;
+                    bR = true;
                     break;
                 case KeyEvent.VK_UP:
-                    y -= 10;
+                    bU = true;
                     break;
                 case KeyEvent.VK_DOWN:
-                    y += 10;
+                    bD = true;
                     break;
                 default:
                     break;
@@ -61,16 +65,16 @@ public class TankFrame extends Frame{
             int key = e.getKeyCode();
             switch (key) {
                 case KeyEvent.VK_LEFT:
-                    x -= 10;
+                    bL = false;
                     break;
                 case KeyEvent.VK_RIGHT:
-                    x += 10;
+                    bR = false;
                     break;
                 case KeyEvent.VK_UP:
-                    y -= 10;
+                    bU = false;
                     break;
                 case KeyEvent.VK_DOWN:
-                    y += 10;
+                    bD = false;
                     break;
                 default:
                     break;
