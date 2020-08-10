@@ -8,8 +8,8 @@ public class Tank {
     private static final int SPEED = 10;//坦克移动的速度
     private boolean moving = false;//标识坦克是否移动,用来实现坦克静止,初始状态没有移动
     private TankFrame tf;
-    private static final int TANK_WIDTH = 50;//坦克宽度
-    private static final int TANK_HEIGHT = 50;//坦克高度
+    private static final int TANK_WIDTH = ResourceManager.tankD.getWidth();//坦克宽度
+    private static final int TANK_HEIGHT = ResourceManager.tankD.getHeight();//坦克高度
 
     public boolean isMoving() {
         return moving;
@@ -36,10 +36,20 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.CYAN);
-        g.fillRect(x, y, TANK_WIDTH, TANK_HEIGHT);
-        g.setColor(c);
+        switch (dir){
+            case LEFT:
+                g.drawImage(ResourceManager.tankL,x,y,null);
+                break;
+            case RIGHT:
+                g.drawImage(ResourceManager.tankR,x,y,null);
+                break;
+            case UP:
+                g.drawImage(ResourceManager.tankU,x,y,null);
+                break;
+            case DOWN:
+                g.drawImage(ResourceManager.tankD,x,y,null);
+                break;
+        }
         move();//坦克移动
     }
 
@@ -63,8 +73,8 @@ public class Tank {
     }
 
     public void fire() {
-        int x = this.x + TANK_WIDTH/2-5;//发射子弹的初始位置x
-        int y = this.y + TANK_HEIGHT/2-5;//发射子弹的初始位置y
+        int x = this.x + TANK_WIDTH/2-ResourceManager.bulletD.getWidth()/2;//发射子弹的初始位置x
+        int y = this.y + TANK_HEIGHT/2-ResourceManager.bulletD.getHeight()/2;//发射子弹的初始位置y
         tf.bullets.add(new Bullet(x,y,this.dir,this.tf));
     }
 }
