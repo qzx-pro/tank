@@ -32,7 +32,10 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
+        Color c = g.getColor();
+        g.setColor(Color.CYAN);
         g.fillRect(x, y, 50, 50);
+        g.setColor(c);
         move();//坦克移动
     }
 

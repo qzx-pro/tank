@@ -6,6 +6,9 @@ public class Bullet {
     private int x,y;//初始位置
     private Dir dir ;//子弹的初始方向
     private static final int SPEED = 5;//子弹移动的速度
+    private static final int BULLET_WIDTH = 10;//子弹的宽度
+    private static final int BULLET_HEIGHT = 10;//子弹的高度
+
 
     public Bullet(int x, int y, Dir dir) {
         this.x = x;
@@ -16,7 +19,7 @@ public class Bullet {
     public void paint(Graphics g) {
         Color c = g.getColor();
         g.setColor(Color.RED);
-        g.fillOval(x, y, 10, 10);
+        g.fillOval(x, y, BULLET_WIDTH, BULLET_HEIGHT);
         g.setColor(c);
         move();//子弹移动
     }

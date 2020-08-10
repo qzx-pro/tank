@@ -1,11 +1,11 @@
 package com.qzx.frame;
 
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.Frame;
-import java.awt.Graphics;
+
 /**
  * @Auther: qzx
  * @Date: 2020/8/5 - 08 - 05 - 7:20
@@ -13,11 +13,13 @@ import java.awt.Graphics;
  * @version: 1.0
  */
 public class TankFrame extends Frame{
+    private static final int GAME_WIDTH = 800,GAME_HEIGHT = 600;
     Tank tank = new Tank(200,200,Dir.DOWN);
     Bullet bullet = new Bullet(250,250,Dir.DOWN);
 
     public TankFrame() {
-        this.setSize(800, 600);//初始大小
+        this.setLocation(800,400);//设定初始Frame的位置
+        this.setSize(GAME_WIDTH, GAME_HEIGHT);//初始大小
         this.setResizable(false);//设置大小不可变
         this.setVisible(true);//设置可见
         this.setTitle("tank war");//设置标题
@@ -31,6 +33,22 @@ public class TankFrame extends Frame{
         //响应键盘事件
         this.addKeyListener(new MyKey());
     }
+    //利用双缓冲解决屏幕闪烁问题
+    Image offScreenImage = null;
+    @Override
+    public void update(Graphics g) {
+        if (offScreenImage == null){
+            offScreenImage = this.createImage(GAME_WIDTH,GAME_HEIGHT);
+        }
+        Graphics gOffScreen = offScreenImage.getGraphics();
+        Color c = gOffScreen.getColor();
+        gOffScreen.setColor(Color.BLACK);
+        gOffScreen.fillRect(0,0,GAME_WIDTH,GAME_HEIGHT);
+        gOffScreen.setColor(c);
+        paint(gOffScreen);
+        g.drawImage(offScreenImage,0,0,null);
+    }
+
     @Override
     public void paint(Graphics g) {
         tank.paint(g);
