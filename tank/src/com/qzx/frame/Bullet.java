@@ -8,12 +8,15 @@ public class Bullet {
     private static final int SPEED = 5;//子弹移动的速度
     private static final int BULLET_WIDTH = 10;//子弹的宽度
     private static final int BULLET_HEIGHT = 10;//子弹的高度
+    public boolean isAlive = true;//子弹是否消失
+    private TankFrame tf;
 
 
-    public Bullet(int x, int y, Dir dir) {
+    public Bullet(int x, int y, Dir dir,TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.tf = tf;
     }
 
     public void paint(Graphics g) {
@@ -39,6 +42,10 @@ public class Bullet {
             case DOWN:
                 y += SPEED;
                 break;
+        }
+        if (x<0||x>tf.GAME_WIDTH||y<0||y>tf.GAME_HEIGHT){
+            //超过边界，设置子弹消失状态
+            isAlive = false;
         }
     }
 }

@@ -65,6 +65,6 @@ public class Tank {
     public void fire() {
         int x = this.x + TANK_WIDTH/2-5;//发射子弹的初始位置x
         int y = this.y + TANK_HEIGHT/2-5;//发射子弹的初始位置y
-        tf.bullet = new Bullet(x,y,this.dir);
+        tf.bullets.add(new Bullet(x,y,this.dir,this.tf));
     }
 }

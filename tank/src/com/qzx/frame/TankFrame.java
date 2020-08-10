@@ -5,6 +5,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Auther: qzx
@@ -13,9 +15,9 @@ import java.awt.event.WindowEvent;
  * @version: 1.0
  */
 public class TankFrame extends Frame{
-    private static final int GAME_WIDTH = 800,GAME_HEIGHT = 600;
+    final int GAME_WIDTH = 800,GAME_HEIGHT = 600;
     Tank tank = new Tank(200,200,Dir.DOWN,this);
-    Bullet bullet = new Bullet(250,250,Dir.DOWN);
+    List<Bullet> bullets = new ArrayList<>();
 
     public TankFrame() {
         this.setLocation(800,400);//设定初始Frame的位置
@@ -51,8 +53,20 @@ public class TankFrame extends Frame{
 
     @Override
     public void paint(Graphics g) {
+        Color c = g.getColor();
+        g.setColor(Color.WHITE);
+        g.drawString("子弹数量:"+bullets.size(),10,60);
+        g.setColor(c);
         tank.paint(g);
-        bullet.paint(g);
+        for (int i = 0; i < bullets.size(); i++) {
+            Bullet bullet = bullets.get(i);
+            bullet.paint(g);
+            if (!bullet.isAlive){
+                //子弹飞出边界，移除子弹
+                bullets.remove(bullet);
+            }
+        }
+
     }
 
     class MyKey extends KeyAdapter {
