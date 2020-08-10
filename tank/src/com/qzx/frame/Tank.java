@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class Tank {
     private int x,y;//初始位置
-    private Dir dir = Dir.DOWN;//坦克的初始方向
+    private Dir dir ;//坦克的初始方向
     private static final int SPEED = 10;//坦克移动的速度
     private boolean moving = false;//标识坦克是否移动,用来实现坦克静止,初始状态没有移动
 
@@ -16,9 +16,11 @@ public class Tank {
         this.moving = moving;
     }
 
-    public Tank(int x, int y) {
+
+    public Tank(int x, int y, Dir dir) {
         this.x = x;
         this.y = y;
+        this.dir = dir;
     }
 
     public Dir getDir() {

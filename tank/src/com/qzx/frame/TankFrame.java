@@ -13,8 +13,8 @@ import java.awt.Graphics;
  * @version: 1.0
  */
 public class TankFrame extends Frame{
-    int x=200,y=200;//初始位置
-    Tank tank = new Tank(x,y);
+    Tank tank = new Tank(200,200,Dir.DOWN);
+    Bullet bullet = new Bullet(250,250,Dir.DOWN);
 
     public TankFrame() {
         this.setSize(800, 600);//初始大小
@@ -34,6 +34,7 @@ public class TankFrame extends Frame{
     @Override
     public void paint(Graphics g) {
         tank.paint(g);
+        bullet.paint(g);
     }
 
     class MyKey extends KeyAdapter {
