@@ -14,7 +14,7 @@ import java.awt.event.WindowEvent;
  */
 public class TankFrame extends Frame{
     private static final int GAME_WIDTH = 800,GAME_HEIGHT = 600;
-    Tank tank = new Tank(200,200,Dir.DOWN);
+    Tank tank = new Tank(200,200,Dir.DOWN,this);
     Bullet bullet = new Bullet(250,250,Dir.DOWN);
 
     public TankFrame() {
@@ -99,6 +99,9 @@ public class TankFrame extends Frame{
                     break;
                 case KeyEvent.VK_DOWN:
                     bD = false;
+                    break;
+                case KeyEvent.VK_SPACE:
+                    tank.fire();//按下空格键发射子弹
                     break;
                 default:
                     break;
