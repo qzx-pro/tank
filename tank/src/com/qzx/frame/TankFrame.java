@@ -35,6 +35,7 @@ public class TankFrame extends Frame{
     public void paint(Graphics g) {
         tank.paint(g);
     }
+
     class MyKey extends KeyAdapter {
         boolean bL = false;//向左,按下为true,释放为false
         boolean bR = false;//向右,按下为true,释放为false
@@ -88,16 +89,22 @@ public class TankFrame extends Frame{
         }
         //设置坦克的方向
         private void setTankDir() {
-            if (bL) {
-                tank.setDir(Dir.LEFT);
-            }else if (bR) {
-                tank.setDir(Dir.RIGHT);
-            }else if (bU) {
-                tank.setDir(Dir.UP);
-            }else if (bD) {
-                tank.setDir(Dir.DOWN);
+            if (!bL&!bR&!bU&!bD){
+                tank.setMoving(false);//按键松开就停止
             }else {
-                tank.setDir(Dir.STOP);
+                tank.setMoving(true);//按下表示开始移动
+                if (bL) {
+                    tank.setDir(Dir.LEFT);
+                }
+                if (bR) {
+                    tank.setDir(Dir.RIGHT);
+                }
+                if (bU) {
+                    tank.setDir(Dir.UP);
+                }
+                if (bD) {
+                    tank.setDir(Dir.DOWN);
+                }
             }
         }
     }

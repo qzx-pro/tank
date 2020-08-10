@@ -8,5 +8,4 @@ public enum Dir {
     RIGHT,//向右
     UP,//向上
     DOWN,//向下
-    STOP//初始方向，停止
 }
