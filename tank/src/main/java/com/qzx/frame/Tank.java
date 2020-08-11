@@ -15,7 +15,7 @@ public class Tank {
     boolean isAlive = true;//坦克是否消失(遭到敌方攻击时消失)
     Group group;//当前坦克的敌友标识
     Random random = new Random();//让坦克随机发射子弹
-    Rectangle recTank;
+    boolean init = true;//是否是初始状态
 
     public boolean isMoving() {
         return moving;
@@ -82,6 +82,12 @@ public class Tank {
 
     private void move() {
         if(!isMoving()) return;//没有移动
+        if (init&&group==Group.ALLY){
+            //我方坦克在初始化时不要移动
+            init = false;
+            setMoving(false);
+            return;
+        }
         //根据坦克的方向进行移动
         switch (dir){
             case LEFT:
@@ -97,9 +103,15 @@ public class Tank {
                 y += SPEED;
                 break;
         }
-        if (random.nextInt(10)>8){
+        if (group == Group.ENEMY&&random.nextInt(100)>95){
+            //敌方随机发射炮弹和改变移动方向
             this.fire();
+            this.randomDir();
         }
+    }
+
+    private void randomDir() {
+        this.setDir(Dir.values()[random.nextInt(4)]);
     }
 
     public void fire() {
