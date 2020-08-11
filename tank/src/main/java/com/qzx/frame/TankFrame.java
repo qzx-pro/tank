@@ -16,8 +16,9 @@ import java.util.List;
  */
 public class TankFrame extends Frame{
     final int GAME_WIDTH = 800,GAME_HEIGHT = 600;
-    Tank tank = new Tank(200,200,Dir.DOWN,this);
-    List<Bullet> bullets = new ArrayList<>();
+    Tank tank = new Tank(200,400,Dir.UP,this);
+    List<Bullet> bullets = new ArrayList<>();//打出的子弹集合
+    List<Tank> enemies = new ArrayList<>();//敌人坦克集合
 
     public TankFrame() {
         this.setLocation(800,400);//设定初始Frame的位置
@@ -57,7 +58,9 @@ public class TankFrame extends Frame{
         g.setColor(Color.WHITE);
         g.drawString("子弹数量:"+bullets.size(),10,60);
         g.setColor(c);
+        //画出我方坦克
         tank.paint(g);
+        //画出打出的子弹
         for (int i = 0; i < bullets.size(); i++) {
             Bullet bullet = bullets.get(i);
             bullet.paint(g);
@@ -66,7 +69,11 @@ public class TankFrame extends Frame{
                 bullets.remove(bullet);
             }
         }
-
+        //画出敌方坦克
+        for (int i = 0; i < enemies.size(); i++) {
+            Tank enemy = enemies.get(i);
+            enemy.paint(g);
+        }
     }
 
     class MyKey extends KeyAdapter {

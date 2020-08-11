@@ -11,6 +11,9 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         TankFrame tankFrame = new TankFrame();
+        for (int i = 0; i < 5; i++) {
+            tankFrame.enemies.add(new Tank(50+i*50,150,Dir.DOWN,tankFrame));
+        }
         while(true) {
             TimeUnit.MILLISECONDS.sleep(50);
             tankFrame.repaint();
