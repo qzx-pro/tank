@@ -1,6 +1,7 @@
 package com.qzx.frame;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Tank {
@@ -60,16 +61,20 @@ public class Tank {
         if (!this.isAlive) return;//坦克消失不用画出
         switch (dir){
             case LEFT:
-                g.drawImage(ResourceManager.tankL,x,y,null);
+                BufferedImage tankL = group == Group.ALLY ? ResourceManager.MyTankL : ResourceManager.tankL;
+                g.drawImage(tankL,x,y,null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceManager.tankR,x,y,null);
+                BufferedImage tankR = group == Group.ALLY ? ResourceManager.MyTankR : ResourceManager.tankR;
+                g.drawImage(tankR,x,y,null);
                 break;
             case UP:
-                g.drawImage(ResourceManager.tankU,x,y,null);
+                BufferedImage tankU = group == Group.ALLY ? ResourceManager.MyTankU : ResourceManager.tankU;
+                g.drawImage(tankU,x,y,null);
                 break;
             case DOWN:
-                g.drawImage(ResourceManager.tankD,x,y,null);
+                BufferedImage tankD = group == Group.ALLY ? ResourceManager.MyTankD : ResourceManager.tankD;
+                g.drawImage(tankD,x,y,null);
                 break;
         }
         move();//坦克移动
