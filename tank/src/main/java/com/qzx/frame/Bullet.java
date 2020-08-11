@@ -11,6 +11,7 @@ public class Bullet {
     public boolean isAlive = true;//子弹是否消失
     private TankFrame tf;
     Group group;//当前发射的子弹的敌友标识,和发射该子弹的坦克的标识一致
+    Rectangle recBullet;
 
     public int getX() {
         return x;

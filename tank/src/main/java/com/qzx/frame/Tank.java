@@ -14,6 +14,7 @@ public class Tank {
     boolean isAlive = true;//坦克是否消失(遭到敌方攻击时消失)
     Group group;//当前坦克的敌友标识
     Random random = new Random();//让坦克随机发射子弹
+    Rectangle recTank;
 
     public boolean isMoving() {
         return moving;

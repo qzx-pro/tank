@@ -19,6 +19,7 @@ public class TankFrame extends Frame{
     Tank tank = new Tank(200,400,Dir.UP,this,Group.ALLY);//我方坦克
     List<Bullet> bullets = new ArrayList<>();//打出的子弹集合
     List<Tank> enemies = new ArrayList<>();//敌人坦克集合
+    Explode explode = new Explode(100,150,this);
 
     public TankFrame() {
         this.setLocation(800,400);//设定初始Frame的位置
@@ -87,6 +88,7 @@ public class TankFrame extends Frame{
                 bullet.collideWith(enemies.get(j));
             }
         }
+        explode.paint(g);
     }
 
     class MyKey extends KeyAdapter {
