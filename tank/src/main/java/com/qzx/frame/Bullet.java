@@ -85,6 +85,7 @@ public class Bullet {
             //如果2个矩形相交就说明发生碰撞
             this.isAlive = false;
             tank.isAlive = false;
+            tf.explodes.add(new Explode(x,y,tf));
         }
     }
 }
