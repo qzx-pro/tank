@@ -1,16 +1,19 @@
 package com.qzx.frame;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Tank {
     private int x,y;//初始位置
     private Dir dir ;//坦克的初始方向
-    private static final int SPEED = 10;//坦克移动的速度
-    private boolean moving = false;//标识坦克是否移动,用来实现坦克静止,初始状态没有移动
+    private static final int SPEED = 1;//坦克移动的速度
+    private boolean moving = true;//标识坦克是否移动,用来实现坦克静止,初始状态没有移动
     private TankFrame tf;
     static final int TANK_WIDTH = ResourceManager.tankD.getWidth();//坦克宽度
     static final int TANK_HEIGHT = ResourceManager.tankD.getHeight();//坦克高度
     boolean isAlive = true;//坦克是否消失(遭到敌方攻击时消失)
+    Group group;//当前坦克的敌友标识
+    Random random = new Random();//让坦克随机发射子弹
 
     public boolean isMoving() {
         return moving;
@@ -36,11 +39,12 @@ public class Tank {
         this.y = y;
     }
 
-    public Tank(int x, int y, Dir dir, TankFrame tf) {
+    public Tank(int x, int y, Dir dir, TankFrame tf, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.tf = tf;
+        this.group = group;
     }
 
     public Dir getDir() {
@@ -71,7 +75,7 @@ public class Tank {
     }
 
     private void move() {
-        if(!moving) return;//没有移动
+        if(!isMoving()) return;//没有移动
         //根据坦克的方向进行移动
         switch (dir){
             case LEFT:
@@ -87,11 +91,14 @@ public class Tank {
                 y += SPEED;
                 break;
         }
+        if (random.nextInt(10)>8){
+            this.fire();
+        }
     }
 
     public void fire() {
         int x = this.x + TANK_WIDTH/2-ResourceManager.bulletD.getWidth()/2;//发射子弹的初始位置x
         int y = this.y + TANK_HEIGHT/2-ResourceManager.bulletD.getHeight()/2;//发射子弹的初始位置y
-        tf.bullets.add(new Bullet(x,y,this.dir,this.tf));
+        tf.bullets.add(new Bullet(x,y,this.dir,this.tf,this.group));
     }
 }

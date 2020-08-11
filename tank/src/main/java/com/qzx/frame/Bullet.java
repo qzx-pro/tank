@@ -10,6 +10,7 @@ public class Bullet {
     private static final int BULLET_HEIGHT = ResourceManager.bulletD.getHeight();//子弹的高度
     public boolean isAlive = true;//子弹是否消失
     private TankFrame tf;
+    Group group;//当前发射的子弹的敌友标识,和发射该子弹的坦克的标识一致
 
     public int getX() {
         return x;
@@ -27,11 +28,12 @@ public class Bullet {
         this.y = y;
     }
 
-    public Bullet(int x, int y, Dir dir, TankFrame tf) {
+    public Bullet(int x, int y, Dir dir, TankFrame tf, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.tf = tf;
+        this.group = group;
     }
 
     public void paint(Graphics g) {
@@ -75,6 +77,7 @@ public class Bullet {
     }
     //子弹与坦克发生碰撞检测
     public void collideWith(Tank tank) {
+        if (this.group == tank.group) return;//如果是我方发射的子弹不做碰撞检测,也就是不开启队友伤害
         Rectangle recBullet = new Rectangle(this.getX(),this.getY(),BULLET_WIDTH,BULLET_HEIGHT);
         Rectangle recTank = new Rectangle(tank.getX(),tank.getY(),Tank.TANK_WIDTH,Tank.TANK_HEIGHT);
         if (recBullet.intersects(recTank)){
