@@ -85,6 +85,8 @@ public class Bullet {
             //如果2个矩形相交就说明发生碰撞
             this.isAlive = false;
             tank.isAlive = false;
+            int x = tank.getX() + Tank.TANK_WIDTH/2 - Explode.WIDTH/2;//爆炸的位置x为坦克的中心位置x
+            int y = tank.getY() + Tank.TANK_HEIGHT/2 - Explode.HEIGHT/2;//爆炸的位置y为坦克的中心位置y
             tf.explodes.add(new Explode(x,y,tf));
         }
     }
