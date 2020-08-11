@@ -11,8 +11,23 @@ public class Bullet {
     public boolean isAlive = true;//子弹是否消失
     private TankFrame tf;
 
+    public int getX() {
+        return x;
+    }
 
-    public Bullet(int x, int y, Dir dir,TankFrame tf) {
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public Bullet(int x, int y, Dir dir, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -56,6 +71,16 @@ public class Bullet {
         if (x<0||x>tf.GAME_WIDTH||y<0||y>tf.GAME_HEIGHT){
             //超过边界，设置子弹消失状态
             isAlive = false;
+        }
+    }
+    //子弹与坦克发生碰撞检测
+    public void collideWith(Tank tank) {
+        Rectangle recBullet = new Rectangle(this.getX(),this.getY(),BULLET_WIDTH,BULLET_HEIGHT);
+        Rectangle recTank = new Rectangle(tank.getX(),tank.getY(),Tank.TANK_WIDTH,Tank.TANK_HEIGHT);
+        if (recBullet.intersects(recTank)){
+            //如果2个矩形相交就说明发生碰撞
+            this.isAlive = false;
+            tank.isAlive = false;
         }
     }
 }

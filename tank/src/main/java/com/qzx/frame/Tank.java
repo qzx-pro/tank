@@ -8,8 +8,9 @@ public class Tank {
     private static final int SPEED = 10;//坦克移动的速度
     private boolean moving = false;//标识坦克是否移动,用来实现坦克静止,初始状态没有移动
     private TankFrame tf;
-    private static final int TANK_WIDTH = ResourceManager.tankD.getWidth();//坦克宽度
-    private static final int TANK_HEIGHT = ResourceManager.tankD.getHeight();//坦克高度
+    static final int TANK_WIDTH = ResourceManager.tankD.getWidth();//坦克宽度
+    static final int TANK_HEIGHT = ResourceManager.tankD.getHeight();//坦克高度
+    boolean isAlive = true;//坦克是否消失(遭到敌方攻击时消失)
 
     public boolean isMoving() {
         return moving;
@@ -19,8 +20,23 @@ public class Tank {
         this.moving = moving;
     }
 
+    public int getX() {
+        return x;
+    }
 
-    public Tank(int x, int y, Dir dir,TankFrame tf) {
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public Tank(int x, int y, Dir dir, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -36,6 +52,7 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
+        if (!this.isAlive) return;//坦克消失不用画出
         switch (dir){
             case LEFT:
                 g.drawImage(ResourceManager.tankL,x,y,null);
