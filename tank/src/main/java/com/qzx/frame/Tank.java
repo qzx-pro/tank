@@ -16,6 +16,7 @@ public class Tank {
     Group group;//当前坦克的敌友标识
     Random random = new Random();//让坦克随机发射子弹
     boolean init = true;//是否是初始状态
+    Rectangle recTank = null;//坦克的所处位置的矩形，用来做碰撞检测
 
     public boolean isMoving() {
         return moving;
@@ -47,6 +48,7 @@ public class Tank {
         this.dir = dir;
         this.tf = tf;
         this.group = group;
+        recTank = new Rectangle(x,y,TANK_WIDTH,TANK_HEIGHT);
     }
 
     public Dir getDir() {
@@ -110,6 +112,9 @@ public class Tank {
         }
         //在移动过程中需要做边界检测，不能移动到边界之外
         boundCheck();
+        //更新recTank的位置
+        recTank.x = x;
+        recTank.y = y;
     }
 
     private void boundCheck() {
