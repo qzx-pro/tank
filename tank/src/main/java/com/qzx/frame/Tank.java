@@ -7,7 +7,7 @@ import java.util.Random;
 public class Tank {
     private int x,y;//初始位置
     private Dir dir ;//坦克的初始方向
-    private static final int SPEED = 1;//坦克移动的速度
+    private static final int SPEED = 5;//坦克移动的速度
     private boolean moving = true;//标识坦克是否移动,用来实现坦克静止,初始状态没有移动
     private TankFrame tf;
     static final int TANK_WIDTH = ResourceManager.tankD.getWidth();//坦克宽度
@@ -107,6 +107,31 @@ public class Tank {
             //敌方随机发射炮弹和改变移动方向
             this.fire();
             this.randomDir();
+        }
+        //在移动过程中需要做边界检测，不能移动到边界之外
+        boundCheck();
+    }
+
+    private void boundCheck() {
+        boolean isOutOfBound = false;//判断是否越界
+        if (this.x<20){
+            x = 20;
+            isOutOfBound = true;
+        }
+        if (this.y<40) {
+            y = 40;
+            isOutOfBound = true;
+        }
+        if (this.x>TankFrame.GAME_WIDTH-Tank.TANK_WIDTH-20){
+            x = TankFrame.GAME_WIDTH-Tank.TANK_WIDTH-20;
+            isOutOfBound = true;
+        }
+        if (this.y>TankFrame.GAME_HEIGHT-Tank.TANK_HEIGHT-20) {
+            y = TankFrame.GAME_HEIGHT-Tank.TANK_HEIGHT-20;
+            isOutOfBound = true;
+        }
+        if (isOutOfBound&&group==Group.ENEMY){
+            randomDir();//敌方坦克在越界后直接改变方向
         }
     }
 
