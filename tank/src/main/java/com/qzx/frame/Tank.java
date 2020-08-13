@@ -10,8 +10,8 @@ public class Tank {
     private static final int SPEED = 5;//坦克移动的速度
     private boolean moving = true;//标识坦克是否移动,用来实现坦克静止,初始状态没有移动
     private TankFrame tf;
-    static final int TANK_WIDTH = ResourceManager.tankD.getWidth();//坦克宽度
-    static final int TANK_HEIGHT = ResourceManager.tankD.getHeight();//坦克高度
+    static int TANK_WIDTH = ResourceManager.getTankU().getWidth();//坦克宽度
+    static int TANK_HEIGHT = ResourceManager.getTankU().getHeight();//坦克高度
     boolean isAlive = true;//坦克是否消失(遭到敌方攻击时消失)
     Group group;//当前坦克的敌友标识
     Random random = new Random();//让坦克随机发射子弹
@@ -42,12 +42,14 @@ public class Tank {
         this.y = y;
     }
 
-    public Tank(int x, int y, Dir dir, TankFrame tf, Group group) {
+    public Tank(int x, int y, Dir dir, TankFrame tf, Group group,int TANK_WIDTH ,int TANK_HEIGHT) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.tf = tf;
         this.group = group;
+        this.TANK_WIDTH = TANK_WIDTH;
+        this.TANK_HEIGHT = TANK_HEIGHT;
         recTank = new Rectangle(x,y,TANK_WIDTH,TANK_HEIGHT);
     }
 
@@ -63,19 +65,19 @@ public class Tank {
         if (!this.isAlive) return;//坦克消失不用画出
         switch (dir){
             case LEFT:
-                BufferedImage tankL = group == Group.ALLY ? ResourceManager.MyTankL : ResourceManager.tankL;
+                BufferedImage tankL = group == Group.ALLY ? ResourceManager.getMyTankL() : ResourceManager.getTankL();
                 g.drawImage(tankL,x,y,null);
                 break;
             case RIGHT:
-                BufferedImage tankR = group == Group.ALLY ? ResourceManager.MyTankR : ResourceManager.tankR;
+                BufferedImage tankR = group == Group.ALLY ? ResourceManager.getMyTankR() : ResourceManager.getTankR();
                 g.drawImage(tankR,x,y,null);
                 break;
             case UP:
-                BufferedImage tankU = group == Group.ALLY ? ResourceManager.MyTankU : ResourceManager.tankU;
+                BufferedImage tankU = group == Group.ALLY ? ResourceManager.getMyTankU() : ResourceManager.getTankU();
                 g.drawImage(tankU,x,y,null);
                 break;
             case DOWN:
-                BufferedImage tankD = group == Group.ALLY ? ResourceManager.MyTankD : ResourceManager.tankD;
+                BufferedImage tankD = group == Group.ALLY ? ResourceManager.getMyTankD() : ResourceManager.getTankD();
                 g.drawImage(tankD,x,y,null);
                 break;
         }
@@ -145,8 +147,8 @@ public class Tank {
     }
 
     public void fire() {
-        int x = this.x + TANK_WIDTH/2-ResourceManager.bulletD.getWidth()/2;//发射子弹的初始位置x
-        int y = this.y + TANK_HEIGHT/2-ResourceManager.bulletD.getHeight()/2;//发射子弹的初始位置y
+        int x = this.x + TANK_WIDTH/2-ResourceManager.getBulletU().getWidth()/2;//发射子弹的初始位置x
+        int y = this.y + TANK_HEIGHT/2-ResourceManager.getBulletU().getHeight()/2;//发射子弹的初始位置y
         tf.bullets.add(new Bullet(x,y,this.dir,this.tf,this.group));
     }
 }

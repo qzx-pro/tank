@@ -1,7 +1,7 @@
 package com.qzx.frame;
 
 /**
- * @Auther: zhaoss
+ * @Auther: qzx
  * @Date: 2020/8/11 - 08 - 11 - 9:24
  * @Description: 敌方和友方的标识
  * @version: 1.0

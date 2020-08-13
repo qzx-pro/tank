@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class TankFrame extends Frame{
     static final int GAME_WIDTH = 1000,GAME_HEIGHT = 800;
-    Tank tank = new Tank(200,400,Dir.UP,this,Group.ALLY);//我方坦克
+    Tank tank = new Tank(200,400,Dir.UP,this,Group.ALLY,ResourceManager.getMyTankU().getWidth(),ResourceManager.getMyTankU().getHeight());//我方坦克
     List<Bullet> bullets = new ArrayList<>();//打出的子弹集合
     List<Tank> enemies = new ArrayList<>();//敌人坦克集合
     List<Explode> explodes = new ArrayList<>();//坦克爆炸集合

@@ -10,7 +10,11 @@ import java.util.Properties;
  * @version: 1.0
  */
 public class PropertyManager {
+    //Properties类本身就是单例的，只需要将构造方法改为private类型就可以保证PropertyManager是单例的。
     private static Properties props = new Properties();
+
+    private PropertyManager() {}
+
     static {
         //该类加载的时候就读取config配置文件的信息
         try {

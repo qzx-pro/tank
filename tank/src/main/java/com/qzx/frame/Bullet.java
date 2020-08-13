@@ -6,8 +6,8 @@ public class Bullet {
     private int x,y;//初始位置
     private Dir dir ;//子弹的初始方向
     private static final int SPEED = 5;//子弹移动的速度
-    private static final int BULLET_WIDTH = ResourceManager.bulletD.getWidth();//子弹的宽度
-    private static final int BULLET_HEIGHT = ResourceManager.bulletD.getHeight();//子弹的高度
+    private static final int BULLET_WIDTH = ResourceManager.getBulletU().getWidth();//子弹的宽度
+    private static final int BULLET_HEIGHT = ResourceManager.getBulletU().getHeight();//子弹的高度
     public boolean isAlive = true;//子弹是否消失
     private TankFrame tf;
     Group group;//当前发射的子弹的敌友标识,和发射该子弹的坦克的标识一致
@@ -41,16 +41,16 @@ public class Bullet {
     public void paint(Graphics g) {
         switch (dir){
             case LEFT:
-                g.drawImage(ResourceManager.bulletL,x,y,null);
+                g.drawImage(ResourceManager.getBulletL(),x,y,null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceManager.bulletR,x,y,null);
+                g.drawImage(ResourceManager.getBulletR(),x,y,null);
                 break;
             case UP:
-                g.drawImage(ResourceManager.bulletU,x,y,null);
+                g.drawImage(ResourceManager.getBulletU(),x,y,null);
                 break;
             case DOWN:
-                g.drawImage(ResourceManager.bulletD,x,y,null);
+                g.drawImage(ResourceManager.getBulletD(),x,y,null);
                 break;
         }
         move();//子弹移动
