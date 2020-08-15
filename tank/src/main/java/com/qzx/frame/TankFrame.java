@@ -15,14 +15,17 @@ import java.util.List;
  * @version: 1.0
  */
 public class TankFrame extends Frame{
-    static final int GAME_WIDTH = 1000,GAME_HEIGHT = 800;
-    Tank tank = new Tank(200,400,Dir.UP,this,Group.ALLY,ResourceManager.getMyTankU().getWidth(),ResourceManager.getMyTankU().getHeight());//我方坦克
+    static final int GAME_WIDTH = Integer.parseInt((String)PropertyManager.get("GAME_WIDTH"));
+    static final int GAME_HEIGHT = Integer.parseInt((String)PropertyManager.get("GAME_HEIGHT"));
+    static final int LOCATION_X = Integer.parseInt((String)PropertyManager.get("LOCATION_X"));
+    static final int LOCATION_Y = Integer.parseInt((String)PropertyManager.get("LOCATION_Y"));
+    Tank tank = new Tank(GAME_WIDTH/2,GAME_HEIGHT/2,Dir.UP,this,Group.ALLY,ResourceManager.getMyTankU().getWidth(),ResourceManager.getMyTankU().getHeight());//我方坦克
     List<Bullet> bullets = new ArrayList<>();//打出的子弹集合
     List<Tank> enemies = new ArrayList<>();//敌人坦克集合
     List<Explode> explodes = new ArrayList<>();//坦克爆炸集合
 
     public TankFrame() {
-        this.setLocation(500,300);//设定初始Frame的位置
+        this.setLocation(LOCATION_X,LOCATION_Y);//设定初始Frame的位置
         this.setSize(GAME_WIDTH, GAME_HEIGHT);//初始大小
         this.setResizable(false);//设置大小不可变
         this.setVisible(true);//设置可见

@@ -5,11 +5,11 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Tank {
-    private int x,y;//初始位置
-    private Dir dir ;//坦克的初始方向
-    private static final int SPEED = 5;//坦克移动的速度
+    public int x,y;//初始位置
+    public Dir dir ;//坦克的初始方向
+    private static final int SPEED = Integer.parseInt((String)PropertyManager.get("TANK_SPEED"));//坦克移动的速度
     private boolean moving = true;//标识坦克是否移动,用来实现坦克静止,初始状态没有移动
-    private TankFrame tf;
+    public TankFrame tf;
     static int TANK_WIDTH = ResourceManager.getTankU().getWidth();//坦克宽度
     static int TANK_HEIGHT = ResourceManager.getTankU().getHeight();//坦克高度
     boolean isAlive = true;//坦克是否消失(遭到敌方攻击时消失)
@@ -17,6 +17,7 @@ public class Tank {
     Random random = new Random();//让坦克随机发射子弹
     boolean init = true;//是否是初始状态
     Rectangle recTank = null;//坦克的所处位置的矩形，用来做碰撞检测
+    FireStrategy fireStrategy;//坦克的开火策略
 
     public boolean isMoving() {
         return moving;
@@ -51,6 +52,21 @@ public class Tank {
         this.TANK_WIDTH = TANK_WIDTH;
         this.TANK_HEIGHT = TANK_HEIGHT;
         recTank = new Rectangle(x,y,TANK_WIDTH,TANK_HEIGHT);
+        if (this.group==Group.ENEMY){
+            String fs = (String) PropertyManager.get("enemyTankFS");
+            try {
+                fireStrategy = (FireStrategy) Class.forName(fs).getDeclaredConstructor().newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else {
+            String fs = (String) PropertyManager.get("myTankFS");
+            try {
+                fireStrategy = (FireStrategy) Class.forName(fs).getDeclaredConstructor().newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public Dir getDir() {
@@ -147,8 +163,6 @@ public class Tank {
     }
 
     public void fire() {
-        int x = this.x + TANK_WIDTH/2-ResourceManager.getBulletU().getWidth()/2;//发射子弹的初始位置x
-        int y = this.y + TANK_HEIGHT/2-ResourceManager.getBulletU().getHeight()/2;//发射子弹的初始位置y
-        tf.bullets.add(new Bullet(x,y,this.dir,this.tf,this.group));
+        fireStrategy.fire(this);
     }
 }

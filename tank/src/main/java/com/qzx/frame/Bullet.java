@@ -5,7 +5,7 @@ import java.awt.*;
 public class Bullet {
     private int x,y;//初始位置
     private Dir dir ;//子弹的初始方向
-    private static final int SPEED = 5;//子弹移动的速度
+    private static final int SPEED = Integer.parseInt((String)PropertyManager.get("BULLET_SPEED"));//子弹移动的速度
     private static final int BULLET_WIDTH = ResourceManager.getBulletU().getWidth();//子弹的宽度
     private static final int BULLET_HEIGHT = ResourceManager.getBulletU().getHeight();//子弹的高度
     public boolean isAlive = true;//子弹是否消失
@@ -36,6 +36,7 @@ public class Bullet {
         this.tf = tf;
         this.group = group;
         recBullet = new Rectangle(x,y,BULLET_WIDTH,BULLET_HEIGHT);
+        tf.bullets.add(this);//构造子弹的时候直接将子弹添加到集合中
     }
 
     public void paint(Graphics g) {
