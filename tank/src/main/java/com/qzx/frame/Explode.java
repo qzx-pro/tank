@@ -1,5 +1,7 @@
 package com.qzx.frame;
 
+import com.qzx.abstractFactory.BaseExplode;
+
 import java.awt.*;
 
 /**
@@ -8,7 +10,7 @@ import java.awt.*;
  * @Description: 保存爆炸效果图
  * @version: 1.0
  */
-public class Explode {
+public class Explode extends BaseExplode {
     private int x,y;//初始位置
     private TankFrame tf;
     static final int WIDTH = ResourceManager.getExplodes()[0].getWidth();//爆炸图片宽度
@@ -20,8 +22,10 @@ public class Explode {
         this.x = x;
         this.y = y;
         this.tf = tf;
+        tf.explodes.add(this);
     }
 
+    @Override
     public void paint(Graphics g) {
         if (step>=ResourceManager.getExplodes().length){
             isAlive = false;//画完爆炸的所有帧图片就移除爆炸效果图

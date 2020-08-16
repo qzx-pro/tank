@@ -1,8 +1,10 @@
 package com.qzx.frame;
 
+import com.qzx.abstractFactory.BaseBullet;
+
 import java.awt.*;
 
-public class Bullet {
+public class Bullet extends BaseBullet {
     private int x,y;//初始位置
     private Dir dir ;//子弹的初始方向
     private static final int SPEED = Integer.parseInt((String)PropertyManager.get("BULLET_SPEED"));//子弹移动的速度
@@ -39,6 +41,7 @@ public class Bullet {
         tf.bullets.add(this);//构造子弹的时候直接将子弹添加到集合中
     }
 
+    @Override
     public void paint(Graphics g) {
         switch (dir){
             case LEFT:
@@ -90,7 +93,8 @@ public class Bullet {
             tank.isAlive = false;
             int x = tank.getX() + Tank.TANK_WIDTH/2 - Explode.WIDTH/2;//爆炸的位置x为坦克的中心位置x
             int y = tank.getY() + Tank.TANK_HEIGHT/2 - Explode.HEIGHT/2;//爆炸的位置y为坦克的中心位置y
-            tf.explodes.add(new Explode(x,y,tf));
+            //使用工厂生成爆炸效果
+            tf.factory.createExplode(x,y,tf);
         }
     }
 }

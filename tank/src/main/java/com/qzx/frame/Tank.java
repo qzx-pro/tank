@@ -1,10 +1,12 @@
 package com.qzx.frame;
 
+import com.qzx.abstractFactory.BaseTank;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Tank {
+public class Tank extends BaseTank {
     public int x,y;//初始位置
     public Dir dir ;//坦克的初始方向
     private static final int SPEED = Integer.parseInt((String)PropertyManager.get("TANK_SPEED"));//坦克移动的速度
@@ -49,8 +51,8 @@ public class Tank {
         this.dir = dir;
         this.tf = tf;
         this.group = group;
-        this.TANK_WIDTH = TANK_WIDTH;
-        this.TANK_HEIGHT = TANK_HEIGHT;
+        Tank.TANK_WIDTH = TANK_WIDTH;
+        Tank.TANK_HEIGHT = TANK_HEIGHT;
         recTank = new Rectangle(x,y,TANK_WIDTH,TANK_HEIGHT);
         if (this.group==Group.ENEMY){
             String fs = (String) PropertyManager.get("enemyTankFS");
@@ -77,6 +79,7 @@ public class Tank {
         this.dir = dir;
     }
 
+    @Override
     public void paint(Graphics g) {
         if (!this.isAlive) return;//坦克消失不用画出
         switch (dir){
