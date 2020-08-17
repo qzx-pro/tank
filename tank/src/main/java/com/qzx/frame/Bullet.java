@@ -9,7 +9,7 @@ public class Bullet {
     private static final int BULLET_WIDTH = ResourceManager.getBulletU().getWidth();//子弹的宽度
     private static final int BULLET_HEIGHT = ResourceManager.getBulletU().getHeight();//子弹的高度
     public boolean isAlive = true;//子弹是否消失
-    private TankFrame tf;
+    private GameModel gm;
     Group group;//当前发射的子弹的敌友标识,和发射该子弹的坦克的标识一致
     Rectangle recBullet = null;
 
@@ -29,14 +29,14 @@ public class Bullet {
         this.y = y;
     }
 
-    public Bullet(int x, int y, Dir dir, TankFrame tf, Group group) {
+    public Bullet(int x, int y, Dir dir, GameModel gm, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.tf = tf;
+        this.gm = gm;
         this.group = group;
         recBullet = new Rectangle(x,y,BULLET_WIDTH,BULLET_HEIGHT);
-        tf.bullets.add(this);//构造子弹的时候直接将子弹添加到集合中
+        gm.bullets.add(this);//构造子弹的时候直接将子弹添加到集合中
     }
 
     public void paint(Graphics g) {
@@ -73,7 +73,7 @@ public class Bullet {
                 y += SPEED;
                 break;
         }
-        if (x<0||x>tf.GAME_WIDTH||y<0||y>tf.GAME_HEIGHT){
+        if (x<0||x>TankFrame.GAME_WIDTH||y<0||y>TankFrame.GAME_HEIGHT){
             //超过边界，设置子弹消失状态
             isAlive = false;
         }
@@ -90,7 +90,7 @@ public class Bullet {
             tank.isAlive = false;
             int x = tank.getX() + Tank.TANK_WIDTH/2 - Explode.WIDTH/2;//爆炸的位置x为坦克的中心位置x
             int y = tank.getY() + Tank.TANK_HEIGHT/2 - Explode.HEIGHT/2;//爆炸的位置y为坦克的中心位置y
-            tf.explodes.add(new Explode(x,y,tf));
+            gm.explodes.add(new Explode(x,y,gm));
         }
     }
 }
