@@ -11,7 +11,7 @@ public class Tank extends BaseTank {
     public Dir dir ;//坦克的初始方向
     private static final int SPEED = Integer.parseInt((String)PropertyManager.get("TANK_SPEED"));//坦克移动的速度
     private boolean moving = true;//标识坦克是否移动,用来实现坦克静止,初始状态没有移动
-    public TankFrame tf;
+    public TankModel tm;
     static int TANK_WIDTH = ResourceManager.getTankU().getWidth();//坦克宽度
     static int TANK_HEIGHT = ResourceManager.getTankU().getHeight();//坦克高度
     boolean isAlive = true;//坦克是否消失(遭到敌方攻击时消失)
@@ -45,11 +45,11 @@ public class Tank extends BaseTank {
         this.y = y;
     }
 
-    public Tank(int x, int y, Dir dir, TankFrame tf, Group group,int TANK_WIDTH ,int TANK_HEIGHT) {
+    public Tank(int x, int y, Dir dir, TankModel tm, Group group,int TANK_WIDTH ,int TANK_HEIGHT) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.tf = tf;
+        this.tm = tm;
         this.group = group;
         Tank.TANK_WIDTH = TANK_WIDTH;
         Tank.TANK_HEIGHT = TANK_HEIGHT;

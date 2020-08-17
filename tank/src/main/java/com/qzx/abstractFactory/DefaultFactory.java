@@ -17,17 +17,17 @@ public class DefaultFactory extends BaseFactory {
         return FACTORY;
     }
     @Override
-    public BaseTank createTank(int x, int y, Dir dir, TankFrame tf, Group group, int TANK_WIDTH, int TANK_HEIGHT) {
-        return new Tank(x,y,dir,tf,group,TANK_WIDTH,TANK_HEIGHT);
+    public BaseTank createTank(int x, int y, Dir dir, TankModel tm, Group group, int TANK_WIDTH, int TANK_HEIGHT) {
+        return new Tank(x,y,dir,tm,group,TANK_WIDTH,TANK_HEIGHT);
     }
 
     @Override
-    public BaseBullet createBullet(int x, int y, Dir dir, TankFrame tf, Group group) {
-        return new Bullet(x,y,dir,tf,group);
+    public BaseBullet createBullet(int x, int y, Dir dir, TankModel tm, Group group) {
+        return new Bullet(x,y,dir,tm,group);
     }
 
     @Override
-    public BaseExplode createExplode(int x, int y, TankFrame tf) {
-        return new Explode(x,y,tf);
+    public BaseExplode createExplode(int x, int y, TankModel tm) {
+        return new Explode(x,y,tm);
     }
 }

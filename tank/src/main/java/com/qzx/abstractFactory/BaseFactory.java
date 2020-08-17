@@ -2,7 +2,7 @@ package com.qzx.abstractFactory;
 
 import com.qzx.frame.Dir;
 import com.qzx.frame.Group;
-import com.qzx.frame.TankFrame;
+import com.qzx.frame.TankModel;
 
 /**
  * @Auther: qzx
@@ -12,7 +12,7 @@ import com.qzx.frame.TankFrame;
  * @version: 1.0
  */
 public abstract class BaseFactory {
-    public abstract BaseTank createTank(int x, int y, Dir dir, TankFrame tf, Group group, int TANK_WIDTH , int TANK_HEIGHT);
-    public abstract BaseBullet createBullet(int x, int y, Dir dir, TankFrame tf, Group group);
-    public abstract BaseExplode createExplode(int x, int y, TankFrame tf);
+    public abstract BaseTank createTank(int x, int y, Dir dir, TankModel tm, Group group, int TANK_WIDTH , int TANK_HEIGHT);
+    public abstract BaseBullet createBullet(int x, int y, Dir dir, TankModel tm, Group group);
+    public abstract BaseExplode createExplode(int x, int y, TankModel tm);
 }

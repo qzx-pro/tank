@@ -12,6 +12,6 @@ public class DefaultStrategy implements FireStrategy {
     public void fire(Tank tank) {
         int x = tank.x + Tank.TANK_WIDTH/2-ResourceManager.getBulletU().getWidth()/2;//发射子弹的初始位置x
         int y = tank.y + Tank.TANK_HEIGHT/2-ResourceManager.getBulletU().getHeight()/2;//发射子弹的初始位置y
-        new Bullet(x,y,tank.dir,tank.tf,tank.group);
+        new Bullet(x,y,tank.dir,tank.tm,tank.group);
     }
 }

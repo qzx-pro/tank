@@ -12,17 +12,17 @@ import java.awt.*;
  */
 public class Explode extends BaseExplode {
     private int x,y;//初始位置
-    private TankFrame tf;
+    private TankModel tm;
     static final int WIDTH = ResourceManager.getExplodes()[0].getWidth();//爆炸图片宽度
     static final int HEIGHT = ResourceManager.getExplodes()[0].getHeight();//爆炸图片高度
     private int step = 0;
     boolean isAlive = true;//爆炸效果是否消失
 
-    public Explode(int x, int y, TankFrame tf) {
+    public Explode(int x, int y, TankModel tm) {
         this.x = x;
         this.y = y;
-        this.tf = tf;
-        tf.explodes.add(this);
+        this.tm = tm;
+        tm.explodes.add(this);
     }
 
     @Override

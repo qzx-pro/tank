@@ -20,7 +20,7 @@ public class FourFireStrategy implements FireStrategy {
         BaseFactory factory = DefaultFactory.getFactory();//生成坦克、子弹和爆炸效果的工厂
         for (Dir dir : dirs) {
             //使用工厂产生子弹
-            factory.createBullet(x,y,dir,tank.tf,tank.group);
+            factory.createBullet(x,y,dir,tank.tm,tank.group);
         }
     }
 }
