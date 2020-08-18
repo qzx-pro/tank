@@ -2,6 +2,7 @@ package com.qzx.frame;
 
 import com.qzx.chainOfRes.BulletTankCollider;
 import com.qzx.chainOfRes.Collider;
+import com.qzx.chainOfRes.ColliderChain;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -18,7 +19,8 @@ public class GameModel {
     Tank tank = new Tank(TankFrame.GAME_WIDTH/2,TankFrame.GAME_HEIGHT/2,Dir.UP,this,Group.ALLY,ResourceManager.getMyTankU().getWidth(),ResourceManager.getMyTankU().getHeight());//我方坦克
     private List<GameObject> objects = new ArrayList<>();//所有对象的集合
 
-    Collider collider = new BulletTankCollider();
+//    Collider collider = new BulletTankCollider();
+    ColliderChain chain = new ColliderChain();
 
     public void add(GameObject gameObject){
         objects.add(gameObject);
@@ -48,7 +50,7 @@ public class GameModel {
         // 遍历物体之间的碰撞
         for (int i = 0; i < objects.size(); i++) {
             for (int j = i+1; j < objects.size(); j++) {
-                collider.collide(objects.get(i),objects.get(j));
+                chain.collide(objects.get(i),objects.get(j));
             }
         }
     }
