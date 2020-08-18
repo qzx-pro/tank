@@ -2,7 +2,7 @@ package com.qzx.frame;
 
 import java.awt.*;
 
-public class Bullet {
+public class Bullet extends GameObject{
     private int x,y;//初始位置
     private Dir dir ;//子弹的初始方向
     private static final int SPEED = Integer.parseInt((String)PropertyManager.get("BULLET_SPEED"));//子弹移动的速度
@@ -12,6 +12,18 @@ public class Bullet {
     private GameModel gm;
     Group group;//当前发射的子弹的敌友标识,和发射该子弹的坦克的标识一致
     Rectangle recBullet = null;
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public Rectangle getRecBullet() {
+        return recBullet;
+    }
+
+    public GameModel getGm() {
+        return gm;
+    }
 
     public int getX() {
         return x;
@@ -36,9 +48,10 @@ public class Bullet {
         this.gm = gm;
         this.group = group;
         recBullet = new Rectangle(x,y,BULLET_WIDTH,BULLET_HEIGHT);
-        gm.bullets.add(this);//构造子弹的时候直接将子弹添加到集合中
+        gm.add(this);//构造子弹的时候直接将子弹添加到集合中
     }
 
+    @Override
     public void paint(Graphics g) {
         switch (dir){
             case LEFT:
@@ -55,6 +68,9 @@ public class Bullet {
                 break;
         }
         move();//子弹移动
+        if (!isAlive){
+            gm.remove(this);
+        }
     }
 
     private void move() {
@@ -90,7 +106,7 @@ public class Bullet {
             tank.isAlive = false;
             int x = tank.getX() + Tank.TANK_WIDTH/2 - Explode.WIDTH/2;//爆炸的位置x为坦克的中心位置x
             int y = tank.getY() + Tank.TANK_HEIGHT/2 - Explode.HEIGHT/2;//爆炸的位置y为坦克的中心位置y
-            gm.explodes.add(new Explode(x,y,gm));
+            gm.add(new Explode(x,y,gm));
         }
     }
 }

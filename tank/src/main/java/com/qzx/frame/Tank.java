@@ -4,20 +4,28 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Tank {
+public class Tank extends GameObject{
     public int x,y;//初始位置
     public Dir dir ;//坦克的初始方向
     private static final int SPEED = Integer.parseInt((String)PropertyManager.get("TANK_SPEED"));//坦克移动的速度
     private boolean moving = true;//标识坦克是否移动,用来实现坦克静止,初始状态没有移动
     public GameModel gm;
-    static int TANK_WIDTH = ResourceManager.getTankU().getWidth();//坦克宽度
-    static int TANK_HEIGHT = ResourceManager.getTankU().getHeight();//坦克高度
-    boolean isAlive = true;//坦克是否消失(遭到敌方攻击时消失)
+    public static int TANK_WIDTH = ResourceManager.getTankU().getWidth();//坦克宽度
+    public static int TANK_HEIGHT = ResourceManager.getTankU().getHeight();//坦克高度
+    public boolean isAlive = true;//坦克是否消失(遭到敌方攻击时消失)
     Group group;//当前坦克的敌友标识
     Random random = new Random();//让坦克随机发射子弹
     boolean init = true;//是否是初始状态
     Rectangle recTank = null;//坦克的所处位置的矩形，用来做碰撞检测
     FireStrategy fireStrategy;//坦克的开火策略
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public Rectangle getRecTank() {
+        return recTank;
+    }
 
     public boolean isMoving() {
         return moving;
@@ -77,8 +85,12 @@ public class Tank {
         this.dir = dir;
     }
 
+    @Override
     public void paint(Graphics g) {
-        if (!this.isAlive) return;//坦克消失不用画出
+        if (!this.isAlive){
+            gm.remove(this);
+            return;//坦克消失不用画出
+        }
         switch (dir){
             case LEFT:
                 BufferedImage tankL = group == Group.ALLY ? ResourceManager.getMyTankL() : ResourceManager.getTankL();
