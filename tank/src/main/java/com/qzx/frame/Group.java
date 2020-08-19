@@ -7,5 +7,5 @@ package com.qzx.frame;
  * @version: 1.0
  */
 public enum Group {
-    ENEMY,ALLY
+    ENEMY, ALLY
 }

@@ -10,6 +10,7 @@ package com.qzx.frame;
 public interface FireStrategy {
     /**
      * 参数tank方便知道发射的子弹初始在哪个位置上
+     *
      * @param tank
      */
     void fire(Tank tank);

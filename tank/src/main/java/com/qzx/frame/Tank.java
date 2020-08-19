@@ -4,13 +4,13 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Tank extends GameObject{
-    public int x,y;//初始位置
-    public int oldX,oldY;//相撞前的位置
-    public Dir dir ;//坦克的初始方向
-    private static final int SPEED = Integer.parseInt((String)PropertyManager.get("TANK_SPEED"));//坦克移动的速度
+public class Tank extends GameObject {
+    public int x, y;//初始位置
+    public int oldX, oldY;//相撞前的位置
+    public Dir dir;//坦克的初始方向
+    private static final int SPEED = Integer.parseInt((String) PropertyManager.get("TANK_SPEED"));//坦克移动的速度
     private boolean moving = true;//标识坦克是否移动,用来实现坦克静止,初始状态没有移动
-    public GameModel gm;
+    public GameModel gm = GameModel.getInstance();
     public static int TANK_WIDTH = ResourceManager.getTankU().getWidth();//坦克宽度
     public static int TANK_HEIGHT = ResourceManager.getTankU().getHeight();//坦克高度
     public boolean isAlive = true;//坦克是否消失(遭到敌方攻击时消失)
@@ -52,25 +52,24 @@ public class Tank extends GameObject{
         this.y = y;
     }
 
-    public Tank(int x, int y, Dir dir, GameModel gm, Group group,int TANK_WIDTH ,int TANK_HEIGHT) {
+    public Tank(int x, int y, Dir dir, Group group, int TANK_WIDTH, int TANK_HEIGHT) {
         this.x = x;
         this.y = y;
         oldX = x;
         oldY = y;
         this.dir = dir;
-        this.gm = gm;
         this.group = group;
         this.TANK_WIDTH = TANK_WIDTH;
         this.TANK_HEIGHT = TANK_HEIGHT;
-        recTank = new Rectangle(x,y,TANK_WIDTH,TANK_HEIGHT);
-        if (this.group==Group.ENEMY){
+        recTank = new Rectangle(x, y, TANK_WIDTH, TANK_HEIGHT);
+        if (this.group == Group.ENEMY) {
             String fs = (String) PropertyManager.get("enemyTankFS");
             try {
                 fireStrategy = (FireStrategy) Class.forName(fs).getDeclaredConstructor().newInstance();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else {
+        } else {
             String fs = (String) PropertyManager.get("myTankFS");
             try {
                 fireStrategy = (FireStrategy) Class.forName(fs).getDeclaredConstructor().newInstance();
@@ -90,34 +89,34 @@ public class Tank extends GameObject{
 
     @Override
     public void paint(Graphics g) {
-        if (!this.isAlive){
+        if (!this.isAlive) {
             gm.remove(this);
             return;//坦克消失不用画出
         }
-        switch (dir){
+        switch (dir) {
             case LEFT:
                 BufferedImage tankL = group == Group.ALLY ? ResourceManager.getMyTankL() : ResourceManager.getTankL();
-                g.drawImage(tankL,x,y,null);
+                g.drawImage(tankL, x, y, null);
                 break;
             case RIGHT:
                 BufferedImage tankR = group == Group.ALLY ? ResourceManager.getMyTankR() : ResourceManager.getTankR();
-                g.drawImage(tankR,x,y,null);
+                g.drawImage(tankR, x, y, null);
                 break;
             case UP:
                 BufferedImage tankU = group == Group.ALLY ? ResourceManager.getMyTankU() : ResourceManager.getTankU();
-                g.drawImage(tankU,x,y,null);
+                g.drawImage(tankU, x, y, null);
                 break;
             case DOWN:
                 BufferedImage tankD = group == Group.ALLY ? ResourceManager.getMyTankD() : ResourceManager.getTankD();
-                g.drawImage(tankD,x,y,null);
+                g.drawImage(tankD, x, y, null);
                 break;
         }
         move();//坦克移动
     }
 
     private void move() {
-        if(!isMoving()) return;//没有移动
-        if (init&&group==Group.ALLY){
+        if (!isMoving()) return;//没有移动
+        if (init && group == Group.ALLY) {
             //我方坦克在初始化时不要移动
             init = false;
             setMoving(false);
@@ -127,7 +126,7 @@ public class Tank extends GameObject{
         oldX = x;
         oldY = y;
         //根据坦克的方向进行移动
-        switch (dir){
+        switch (dir) {
             case LEFT:
                 x -= SPEED;
                 break;
@@ -141,7 +140,7 @@ public class Tank extends GameObject{
                 y += SPEED;
                 break;
         }
-        if (group == Group.ENEMY&&random.nextInt(100)>95){
+        if (group == Group.ENEMY && random.nextInt(100) > 95) {
             //敌方随机发射炮弹和改变移动方向
             this.fire();
             this.randomDir();
@@ -155,23 +154,23 @@ public class Tank extends GameObject{
 
     private void boundCheck() {
         boolean isOutOfBound = false;//判断是否越界
-        if (this.x<20){
+        if (this.x < 20) {
             x = 20;
             isOutOfBound = true;
         }
-        if (this.y<40) {
+        if (this.y < 40) {
             y = 40;
             isOutOfBound = true;
         }
-        if (this.x>TankFrame.GAME_WIDTH-Tank.TANK_WIDTH-20){
-            x = TankFrame.GAME_WIDTH-Tank.TANK_WIDTH-20;
+        if (this.x > TankFrame.GAME_WIDTH - Tank.TANK_WIDTH - 20) {
+            x = TankFrame.GAME_WIDTH - Tank.TANK_WIDTH - 20;
             isOutOfBound = true;
         }
-        if (this.y>TankFrame.GAME_HEIGHT-Tank.TANK_HEIGHT-20) {
-            y = TankFrame.GAME_HEIGHT-Tank.TANK_HEIGHT-20;
+        if (this.y > TankFrame.GAME_HEIGHT - Tank.TANK_HEIGHT - 20) {
+            y = TankFrame.GAME_HEIGHT - Tank.TANK_HEIGHT - 20;
             isOutOfBound = true;
         }
-        if (isOutOfBound&&group==Group.ENEMY){
+        if (isOutOfBound && group == Group.ENEMY) {
             randomDir();//敌方坦克在越界后直接改变方向
         }
     }
@@ -184,7 +183,7 @@ public class Tank extends GameObject{
         fireStrategy.fire(this);
     }
 
-    public void back(){
+    public void back() {
         x = oldX;
         y = oldY;
     }

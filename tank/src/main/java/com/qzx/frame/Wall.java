@@ -10,9 +10,10 @@ import java.awt.*;
  * @Description: com.qzx.frame
  * @version: 1.0
  */
-public class Wall extends GameObject{
-    public int x,y,width,height;//墙的位置、宽度和高度
+public class Wall extends GameObject {
+    public int x, y, width, height;//墙的位置、宽度和高度
     public Rectangle rectWall;//墙在屏幕上的图形
+    private GameModel gm = GameModel.getInstance();
 
     public Rectangle getRectWall() {
         return rectWall;
@@ -23,14 +24,19 @@ public class Wall extends GameObject{
         this.y = y;
         this.width = width;
         this.height = height;
-        rectWall = new Rectangle(x,y,width,height);
+        rectWall = new Rectangle(x, y, width, height);
+        gm.add(this);//创造的时候被添加到GameModel的集合中
     }
 
     @Override
     public void paint(Graphics g) {
         Color c = g.getColor();
         g.setColor(Color.DARK_GRAY);
-        g.fillRect(x,y,width,height);
+        g.fillRect(x, y, width, height);
         g.setColor(c);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(GameModel.getInstance());
     }
 }

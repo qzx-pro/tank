@@ -14,17 +14,18 @@ import java.util.List;
  * @Description: com.qzx.frame
  * @version: 1.0
  */
-public class TankFrame extends Frame{
-    static final int GAME_WIDTH = Integer.parseInt((String)PropertyManager.get("GAME_WIDTH"));
-    static final int GAME_HEIGHT = Integer.parseInt((String)PropertyManager.get("GAME_HEIGHT"));
-    static final int LOCATION_X = Integer.parseInt((String)PropertyManager.get("LOCATION_X"));
-    static final int LOCATION_Y = Integer.parseInt((String)PropertyManager.get("LOCATION_Y"));
+public class TankFrame extends Frame {
+    static final int GAME_WIDTH = Integer.parseInt((String) PropertyManager.get("GAME_WIDTH"));
+    static final int GAME_HEIGHT = Integer.parseInt((String) PropertyManager.get("GAME_HEIGHT"));
+    static final int LOCATION_X = Integer.parseInt((String) PropertyManager.get("LOCATION_X"));
+    static final int LOCATION_Y = Integer.parseInt((String) PropertyManager.get("LOCATION_Y"));
 
-    GameModel gm = new GameModel();
+    GameModel gm = GameModel.getInstance();
     Tank tank = gm.tank;
 
     public TankFrame() {
-        this.setLocation(LOCATION_X,LOCATION_Y);//设定初始Frame的位置
+        gm.init();
+        this.setLocation(LOCATION_X, LOCATION_Y);//设定初始Frame的位置
         this.setSize(GAME_WIDTH, GAME_HEIGHT);//初始大小
         this.setResizable(false);//设置大小不可变
         this.setVisible(true);//设置可见
@@ -39,20 +40,22 @@ public class TankFrame extends Frame{
         //响应键盘事件
         this.addKeyListener(new MyKey());
     }
+
     //利用双缓冲解决屏幕闪烁问题
     Image offScreenImage = null;
+
     @Override
     public void update(Graphics g) {
-        if (offScreenImage == null){
-            offScreenImage = this.createImage(GAME_WIDTH,GAME_HEIGHT);
+        if (offScreenImage == null) {
+            offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
         }
         Graphics gOffScreen = offScreenImage.getGraphics();
         Color c = gOffScreen.getColor();
         gOffScreen.setColor(Color.BLACK);
-        gOffScreen.fillRect(0,0,GAME_WIDTH,GAME_HEIGHT);
+        gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
         gOffScreen.setColor(c);
         paint(gOffScreen);
-        g.drawImage(offScreenImage,0,0,null);
+        g.drawImage(offScreenImage, 0, 0, null);
     }
 
     @Override
@@ -114,11 +117,12 @@ public class TankFrame extends Frame{
             //根据标记改变坦克的方向
             setTankDir();
         }
+
         //设置坦克的方向
         private void setTankDir() {
-            if (!bL&!bR&!bU&!bD){
+            if (!bL & !bR & !bU & !bD) {
                 tank.setMoving(false);//按键松开就停止
-            }else {
+            } else {
                 tank.setMoving(true);//按下表示开始移动
                 if (bL) {
                     tank.setDir(Dir.LEFT);

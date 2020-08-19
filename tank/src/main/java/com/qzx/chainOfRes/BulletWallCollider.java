@@ -23,9 +23,9 @@ public class BulletWallCollider implements Collider {
             if (recBullet.intersects(recWall)){
                 //如果2个矩形相交就说明发生碰撞
                 bullet.isAlive = false;
-                int x = bullet.getX() + Bullet.BULLET_WIDTH/2 - Explode.WIDTH/2;//爆炸的位置x为坦克的中心位置x
-                int y = bullet.getY() + Bullet.BULLET_WIDTH/2 - Explode.HEIGHT/2;//爆炸的位置y为坦克的中心位置y
-                bullet.getGm().add(new Explode(x,y,bullet.getGm()));
+                int x = bullet.getX() + Bullet.BULLET_WIDTH/2 - Explode.WIDTH/2;//爆炸的位置x为子弹的中心位置x
+                int y = bullet.getY() + Bullet.BULLET_WIDTH/2 - Explode.HEIGHT/2;//爆炸的位置y为子弹的中心位置y
+                bullet.getGm().add(new Explode(x,y));
                 return true;//发生了碰撞,子弹会消失，但是墙壁不会，所以接着往下进行碰撞检测
             }
             return true;

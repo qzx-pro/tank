@@ -30,7 +30,7 @@ public class BulletTankCollider implements Collider {
                 tank.isAlive = false;
                 int x = tank.getX() + Tank.TANK_WIDTH/2 - Explode.WIDTH/2;//爆炸的位置x为坦克的中心位置x
                 int y = tank.getY() + Tank.TANK_HEIGHT/2 - Explode.HEIGHT/2;//爆炸的位置y为坦克的中心位置y
-                bullet.getGm().add(new Explode(x,y,bullet.getGm()));
+                bullet.getGm().add(new Explode(x,y));
                 return false;//发生了碰撞,子弹和坦克会消失，所以不要进行后续的碰撞检测
             }
             return true;

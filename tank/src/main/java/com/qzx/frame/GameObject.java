@@ -10,8 +10,9 @@ import java.awt.*;
  * @version: 1.0
  */
 public abstract class GameObject {
-    int x,y;//物体的位置
+    int x, y;//物体的位置
     boolean isAlive;//物体是否还需要显示在屏幕上
+
     // 每一个物体的paint方法,实现自己的绘画功能
     public abstract void paint(Graphics g);
 }

@@ -16,31 +16,39 @@ import java.util.List;
  * @version: 1.0
  */
 public class GameModel {
-    Tank tank = new Tank(TankFrame.GAME_WIDTH/2,TankFrame.GAME_HEIGHT/2,Dir.UP,this,Group.ALLY,ResourceManager.getMyTankU().getWidth(),ResourceManager.getMyTankU().getHeight());//我方坦克
+    private static final GameModel INSTANCE = new GameModel();//GameModel设置为单例模式
+    Tank tank = new Tank(TankFrame.GAME_WIDTH / 2, TankFrame.GAME_HEIGHT / 2, Dir.UP, Group.ALLY, ResourceManager.getMyTankU().getWidth(), ResourceManager.getMyTankU().getHeight());//我方坦克
     private List<GameObject> objects = new ArrayList<>();//所有对象的集合
 
     ColliderChain chain = new ColliderChain();//碰撞器链
 
-    public void add(GameObject gameObject){
+    public void add(GameObject gameObject) {
         objects.add(gameObject);
     }
 
-    public void remove(GameObject gameObject){
+    public void remove(GameObject gameObject) {
         objects.remove(gameObject);
     }
 
-    public GameModel() {
+    public static GameModel getInstance() {
+        return INSTANCE;
+    }
+
+    private GameModel() {
+    }
+
+    //初始化方法
+    public void init() {
         //地方坦克
-        int initTankCount = Integer.parseInt((String)PropertyManager.get("initTankCount"));
+        int initTankCount = Integer.parseInt((String) PropertyManager.get("initTankCount"));
         for (int i = 0; i < initTankCount; i++) {
-            Tank enemy = new Tank(50+i*70,150,Dir.DOWN,this,Group.ENEMY,ResourceManager.getTankU().getWidth(),ResourceManager.getTankU().getHeight());
+            Tank enemy = new Tank(50 + i * 70, 150, Dir.DOWN, Group.ENEMY, ResourceManager.getTankU().getWidth(), ResourceManager.getTankU().getHeight());
             add(enemy);
         }
-        // 添加墙壁
-        add(new Wall(350,50,80,100));
-        add(new Wall(100,600,800,70));
-        add(new Wall(300,400,500,70));
-        add(new Wall(1400,200,100,800));
+        new Wall(350, 50, 80, 100);
+        new Wall(100, 600, 800, 70);
+        new Wall(300, 400, 500, 70);
+        new Wall(1400, 200, 100, 800);
     }
 
     public void paint(Graphics g) {
@@ -53,8 +61,8 @@ public class GameModel {
         }
         // 遍历物体之间的碰撞
         for (int i = 0; i < objects.size(); i++) {
-            for (int j = i+1; j < objects.size(); j++) {
-                chain.collide(objects.get(i),objects.get(j));
+            for (int j = i + 1; j < objects.size(); j++) {
+                chain.collide(objects.get(i), objects.get(j));
             }
         }
     }
