@@ -5,6 +5,9 @@ import com.qzx.frame.Dir;
 import com.qzx.frame.GameObject;
 import com.qzx.frame.Tank;
 
+import java.awt.*;
+import java.util.Random;
+
 /**
  * @Auther: qzx
  * @Date: 2020/8/18 - 08 - 18 - 17:23
@@ -16,16 +19,20 @@ public class TankTankCollider implements Collider{
     @Override
     public boolean collide(GameObject o1, GameObject o2) {
         if (o1 instanceof Tank && o2 instanceof Tank){
-            Dir dir = ((Tank) o1).dir;
-            Dir dir1 = ((Tank) o2).dir;
+            Tank tank = (Tank) o1;
+            Tank tank1 = (Tank) o2;
+            Rectangle recTank = tank.getRecTank();
+            Rectangle recTank1 = tank1.getRecTank();
             Dir[] values = Dir.values();
-            for (int i = 0; i < values.length; i++) {
-                if (dir!=values[i]){
-                    ((Tank) o1).setDir(values[i]);
-                }
-                if (dir1!=values[i]){
-                    ((Tank) o2).setDir(values[i]);
-                }
+            Random random = new Random();
+            if (recTank.intersects(recTank1)){
+                //2坦克相撞回到之前的位置,并且随机改变方向。
+                tank.setX(tank.oldX);
+                tank.setY(tank.oldY);
+                tank.setDir(values[random.nextInt(4)]);
+                tank1.setX(tank1.oldX);
+                tank1.setY(tank1.oldY);
+                tank1.setDir(values[random.nextInt(4)]);
             }
         }
         return true;//坦克碰撞不会消失

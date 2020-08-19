@@ -6,6 +6,7 @@ import java.util.Random;
 
 public class Tank extends GameObject{
     public int x,y;//初始位置
+    public int oldX,oldY;//相撞前的位置
     public Dir dir ;//坦克的初始方向
     private static final int SPEED = Integer.parseInt((String)PropertyManager.get("TANK_SPEED"));//坦克移动的速度
     private boolean moving = true;//标识坦克是否移动,用来实现坦克静止,初始状态没有移动
@@ -54,6 +55,8 @@ public class Tank extends GameObject{
     public Tank(int x, int y, Dir dir, GameModel gm, Group group,int TANK_WIDTH ,int TANK_HEIGHT) {
         this.x = x;
         this.y = y;
+        oldX = x;
+        oldY = y;
         this.dir = dir;
         this.gm = gm;
         this.group = group;
@@ -120,6 +123,9 @@ public class Tank extends GameObject{
             setMoving(false);
             return;
         }
+        //移动前保存本次所处的位置
+        oldX = x;
+        oldY = y;
         //根据坦克的方向进行移动
         switch (dir){
             case LEFT:
