@@ -24,7 +24,6 @@ public class TankFrame extends Frame {
     Tank tank = gm.tank;
 
     public TankFrame() {
-        gm.init();
         this.setLocation(LOCATION_X, LOCATION_Y);//设定初始Frame的位置
         this.setSize(GAME_WIDTH, GAME_HEIGHT);//初始大小
         this.setResizable(false);//设置大小不可变

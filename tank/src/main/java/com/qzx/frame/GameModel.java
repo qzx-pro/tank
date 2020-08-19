@@ -22,6 +22,10 @@ public class GameModel {
 
     ColliderChain chain = new ColliderChain();//碰撞器链
 
+    static {
+        INSTANCE.init();//调用初始化方法
+    }
+
     public void add(GameObject gameObject) {
         objects.add(gameObject);
     }
@@ -38,12 +42,11 @@ public class GameModel {
     }
 
     //初始化方法
-    public void init() {
+    private void init() {
         //地方坦克
         int initTankCount = Integer.parseInt((String) PropertyManager.get("initTankCount"));
         for (int i = 0; i < initTankCount; i++) {
-            Tank enemy = new Tank(50 + i * 70, 150, Dir.DOWN, Group.ENEMY, ResourceManager.getTankU().getWidth(), ResourceManager.getTankU().getHeight());
-            add(enemy);
+            new Tank(50 + i * 70, 150, Dir.DOWN, Group.ENEMY, ResourceManager.getTankU().getWidth(), ResourceManager.getTankU().getHeight());
         }
         new Wall(350, 50, 80, 100);
         new Wall(100, 600, 800, 70);

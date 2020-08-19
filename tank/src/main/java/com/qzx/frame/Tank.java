@@ -69,6 +69,8 @@ public class Tank extends GameObject {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            //敌方坦克在构造的时候加入GameObject集合中
+            gm.add(this);
         } else {
             String fs = (String) PropertyManager.get("myTankFS");
             try {
