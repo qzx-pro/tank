@@ -19,8 +19,7 @@ public class GameModel {
     Tank tank = new Tank(TankFrame.GAME_WIDTH/2,TankFrame.GAME_HEIGHT/2,Dir.UP,this,Group.ALLY,ResourceManager.getMyTankU().getWidth(),ResourceManager.getMyTankU().getHeight());//我方坦克
     private List<GameObject> objects = new ArrayList<>();//所有对象的集合
 
-//    Collider collider = new BulletTankCollider();
-    ColliderChain chain = new ColliderChain();
+    ColliderChain chain = new ColliderChain();//碰撞器链
 
     public void add(GameObject gameObject){
         objects.add(gameObject);

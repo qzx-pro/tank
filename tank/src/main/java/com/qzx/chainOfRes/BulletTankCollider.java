@@ -11,6 +11,7 @@ import java.awt.*;
  * @Auther: qzx
  * @Date: 2020/8/18 - 08 - 18 - 16:49
  * @Description: com.qzx.chainOfRes
+ * 子弹与坦克碰撞器
  * @version: 1.0
  */
 public class BulletTankCollider implements Collider {
