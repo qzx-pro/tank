@@ -23,16 +23,12 @@ public class TankTankCollider implements Collider{
             Tank tank1 = (Tank) o2;
             Rectangle recTank = tank.getRecTank();
             Rectangle recTank1 = tank1.getRecTank();
-            Dir[] values = Dir.values();
-            Random random = new Random();
             if (recTank.intersects(recTank1)){
                 //2坦克相撞回到之前的位置,并且随机改变方向。
-                tank.setX(tank.oldX);
-                tank.setY(tank.oldY);
-                tank.setDir(values[random.nextInt(4)]);
-                tank1.setX(tank1.oldX);
-                tank1.setY(tank1.oldY);
-                tank1.setDir(values[random.nextInt(4)]);
+                tank.back();
+                tank.randomDir();
+                tank1.back();
+                tank1.randomDir();
             }
         }
         return true;//坦克碰撞不会消失

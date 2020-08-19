@@ -36,6 +36,11 @@ public class GameModel {
             Tank enemy = new Tank(50+i*70,150,Dir.DOWN,this,Group.ENEMY,ResourceManager.getTankU().getWidth(),ResourceManager.getTankU().getHeight());
             add(enemy);
         }
+        // 添加墙壁
+        add(new Wall(350,50,80,100));
+        add(new Wall(100,600,800,70));
+        add(new Wall(300,400,500,70));
+        add(new Wall(1400,200,100,800));
     }
 
     public void paint(Graphics g) {

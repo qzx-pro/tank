@@ -176,11 +176,16 @@ public class Tank extends GameObject{
         }
     }
 
-    private void randomDir() {
+    public void randomDir() {
         this.setDir(Dir.values()[random.nextInt(4)]);
     }
 
     public void fire() {
         fireStrategy.fire(this);
+    }
+
+    public void back(){
+        x = oldX;
+        y = oldY;
     }
 }

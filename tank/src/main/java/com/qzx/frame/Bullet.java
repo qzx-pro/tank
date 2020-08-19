@@ -6,8 +6,8 @@ public class Bullet extends GameObject{
     private int x,y;//初始位置
     private Dir dir ;//子弹的初始方向
     private static final int SPEED = Integer.parseInt((String)PropertyManager.get("BULLET_SPEED"));//子弹移动的速度
-    private static final int BULLET_WIDTH = ResourceManager.getBulletU().getWidth();//子弹的宽度
-    private static final int BULLET_HEIGHT = ResourceManager.getBulletU().getHeight();//子弹的高度
+    public static final int BULLET_WIDTH = ResourceManager.getBulletU().getWidth();//子弹的宽度
+    public static final int BULLET_HEIGHT = ResourceManager.getBulletU().getHeight();//子弹的高度
     public boolean isAlive = true;//子弹是否消失
     private GameModel gm;
     Group group;//当前发射的子弹的敌友标识,和发射该子弹的坦克的标识一致
