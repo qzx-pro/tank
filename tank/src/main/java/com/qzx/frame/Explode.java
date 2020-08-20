@@ -9,16 +9,19 @@ import java.awt.*;
  * @version: 1.0
  */
 public class Explode extends GameObject {
-    private int x, y;//初始位置
+//    private int x, y;//初始位置
     private GameModel gm = GameModel.getInstance();
     public static final int WIDTH = ResourceManager.getExplodes()[0].getWidth();//爆炸图片宽度
     public static final int HEIGHT = ResourceManager.getExplodes()[0].getHeight();//爆炸图片高度
     private int step = 0;
-    boolean isAlive = true;//爆炸效果是否消失
+//    boolean isAlive = true;//爆炸效果是否消失
 
     public Explode(int x, int y) {
         this.x = x;
         this.y = y;
+        width = WIDTH;
+        height = HEIGHT;
+        isAlive = true;
     }
 
     @Override

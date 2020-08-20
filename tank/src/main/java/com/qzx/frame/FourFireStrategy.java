@@ -1,5 +1,8 @@
 package com.qzx.frame;
 
+import com.qzx.decorator.LineDecorator;
+import com.qzx.decorator.RectDecorator;
+
 /**
  * @Auther: qzx
  * @Date: 2020/8/15 - 08 - 15 - 15:57
@@ -14,7 +17,9 @@ public class FourFireStrategy implements FireStrategy {
         int y = tank.y + Tank.TANK_HEIGHT / 2 - ResourceManager.getBulletU().getHeight() / 2;//发射子弹的初始位置y
         Dir[] dirs = Dir.values();
         for (Dir dir : dirs) {
-            new Bullet(x, y, dir, tank.group);
+            new RectDecorator(
+                    new LineDecorator(
+                            new Bullet(x, y, dir, tank.group)));
         }
     }
 }
