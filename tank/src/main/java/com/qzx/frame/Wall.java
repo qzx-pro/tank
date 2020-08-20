@@ -11,7 +11,6 @@ import java.awt.*;
  * @version: 1.0
  */
 public class Wall extends GameObject {
-//    public int x, y, width, height;//墙的位置、宽度和高度
     public Rectangle rectWall;//墙在屏幕上的图形
     private GameModel gm = GameModel.getInstance();
 

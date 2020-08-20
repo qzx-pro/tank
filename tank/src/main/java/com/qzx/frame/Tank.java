@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Tank extends GameObject {
-//    public int x, y;//初始位置
     public int oldX, oldY;//相撞前的位置
     public Dir dir;//坦克的初始方向
     private static final int SPEED = Integer.parseInt((String) PropertyManager.get("TANK_SPEED"));//坦克移动的速度
@@ -13,7 +12,6 @@ public class Tank extends GameObject {
     public GameModel gm = GameModel.getInstance();
     public static int TANK_WIDTH = ResourceManager.getTankU().getWidth();//坦克宽度
     public static int TANK_HEIGHT = ResourceManager.getTankU().getHeight();//坦克高度
-//    public boolean isAlive = true;//坦克是否消失(遭到敌方攻击时消失)
     Group group;//当前坦克的敌友标识
     Random random = new Random();//让坦克随机发射子弹
     boolean init = true;//是否是初始状态
