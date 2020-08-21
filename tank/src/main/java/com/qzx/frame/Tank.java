@@ -1,7 +1,14 @@
 package com.qzx.frame;
 
+import com.qzx.observer.Event;
+import com.qzx.observer.Observer;
+import com.qzx.observer.TankFireEvent;
+import com.qzx.observer.TankFireObserver;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class Tank extends GameObject {
@@ -189,5 +196,16 @@ public class Tank extends GameObject {
     public void back() {
         x = oldX;
         y = oldY;
+    }
+    // 使用观察者模式开火
+    private List<Observer> observers = Arrays.asList(new TankFireObserver());
+
+    //空格按下的响应函数
+    public void handleFireKey(){
+        // 创造开火事件
+        Event<GameObject> event = new TankFireEvent(this);
+        for (Observer observer : observers) {
+            observer.actionOnEvent(event);
+        }
     }
 }

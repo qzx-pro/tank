@@ -108,7 +108,8 @@ public class TankFrame extends Frame {
                     bD = false;
                     break;
                 case KeyEvent.VK_SPACE:
-                    tank.fire();//按下空格键发射子弹
+//                    tank.fire();//按下空格键发射子弹
+                    tank.handleFireKey();// 按下空格响应对应事件
                     break;
                 default:
                     break;
